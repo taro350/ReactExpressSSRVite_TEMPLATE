@@ -1,5 +1,6 @@
 export default function Env() {
-  let msg = 'default message here'
+  let msg = 'Env page'
+  
   try {
     msg = process.env.MY_CUSTOM_SECRET || msg
   } catch {}

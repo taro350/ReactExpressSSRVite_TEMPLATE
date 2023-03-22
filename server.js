@@ -61,14 +61,14 @@ export async function createServer(
     try {
       const url = req.originalUrl
 
-      let template, render
+      let entry, render
       if (!isProd) {
         // always read fresh template in dev
-        template = fs.readFileSync(resolve('index.html'), 'utf-8')
-        template = await vite.transformIndexHtml(url, template)
+        entry = fs.readFileSync(resolve('index.html'), 'utf-8')
+        entry = await vite.transformIndexHtml(url, entry)
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
       } else {
-        template = indexProd
+        entry = indexProd
         // @ts-ignore
         render = (await import('./dist/server/entry-server.js')).render
       }
@@ -81,7 +81,7 @@ export async function createServer(
         return res.redirect(301, context.url)
       }
 
-      const html = template.replace(`<!--app-html-->`, appHtml)
+      const html = entry.replace(`<!--app-html-->`, appHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {

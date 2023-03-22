@@ -1,5 +1,11 @@
 This test aim to check for a particular type of circular dependency that causes tricky deadlocks, **deadlocks with forked imports stack**
 
+
+*************************************************************************
+3/22/22
+Forget this 'forked-deadlock' as this dir is only for testing purpose
+*************************************************************************
+
 ```
 A -> B means: B is imported by A and B has A in its stack
 A ... B means: A is waiting for B to ssrLoadModule()
